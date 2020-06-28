@@ -47,6 +47,7 @@ import getpath
 from core import G
 import guimodifier
 import language
+import json
 
 class MeasureTaskView(guimodifier.ModifierTaskView):
 
@@ -59,7 +60,7 @@ class MeasureTaskView(guimodifier.ModifierTaskView):
         self.active_slider = None
         self.lastActive = None
 
-        self.statsBox = self.addRightWidget(gui.GroupBox('Statistics'))
+        self.statsBox = self.addRightWidget(gui.GroupBox('Statistics ANT'))
         self.height = self.statsBox.addWidget(gui.TextView('Height: '))
         self.chest = self.statsBox.addWidget(gui.TextView('Chest: '))
         self.waist = self.statsBox.addWidget(gui.TextView('Waist: '))
@@ -206,9 +207,18 @@ class MeasureTaskView(guimodifier.ModifierTaskView):
         waist = getMeasureString(self.getMeasure('measure/measure-waist-circ-decr|incr'))
         hips = getMeasureString(self.getMeasure('measure/measure-hips-circ-decr|incr'))
 
+        data = {"ID": human.getName(),
+                "Height": height,
+                "Chest": chest,
+                "Waist": waist,
+                "Hips": hips} 
+                
+        with open('data.json', 'a', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=4)
+       
         lang = language.language
         self.height.setTextFormat(lang.getLanguageString('Height') + ': %s', height)
-        self.chest.setTextFormat(lang.getLanguageString('Chest') + ': %s', chest)
+        self.chest.setTextFormat(lang.getLanguageString('Chest ANT') + ': %s', chest)
         self.waist.setTextFormat(lang.getLanguageString('Waist') + ': %s', waist)
         self.hips.setTextFormat(lang.getLanguageString('Hips') + ': %s', hips)
 
