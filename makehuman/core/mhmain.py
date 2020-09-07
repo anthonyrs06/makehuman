@@ -57,6 +57,7 @@ import gui
 import language
 import log
 import contextlib
+import glob
 
 from mhversion import MHVersion
 
@@ -396,10 +397,17 @@ class MHApplication(gui3d.Application, mh.Application):
         return G.args
 
     def loadHumanMHM(self, filename):
-        self.selectedHuman.load(filename, True)
-        self.clearUndoRedo()
-        # Reset mesh is never forced to wireframe
-        self.actions.wireframe.setChecked(False)
+        #filename = 'D:/Source/MakeHumanTraining/VScanBlobTrigger/Moolk-model/AUS-Female-18-Up/training-data/training-set-6-14-2020/models\\101-163_9.mhm'
+        # for x in glob.iglob(r'D:\Source\MakeHumanTraining\VScanBlobTrigger\Moolk-model\AUS-Female-18-Up\training-data\training-set-6-14-2020\models\*.mhm'):
+        #     y = x 
+        ## NOTE - iterates through directory and loads all
+        ## TODO - need to get the measuremetns from the loaded now
+        for x in glob.iglob(r'D:\Source\MakeHumanTraining\VScanBlobTrigger\Moolk-model\AUS-Female-18-Up\training-data\training-set-6-14-2020\models\*.mhm'):
+            filename = x 
+            self.selectedHuman.load(filename, True)
+            self.clearUndoRedo()
+            # Reset mesh is never forced to wireframe
+            self.actions.wireframe.setChecked(False)
 
     # TO THINK: Maybe move guisave's saveMHM here as saveHumanMHM?
 

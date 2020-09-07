@@ -46,12 +46,12 @@ import qtgui as gui
 import mh
 import getpath
 import log
-from sorter import Sorter
+from sorter import Sorter 
 
 class ThumbnailCache(object):
     aspect_mode = QtCore.Qt.KeepAspectRatioByExpanding
     scale_mode = QtCore.Qt.SmoothTransformation
-
+    
     def __init__(self, size):
         self.cache = {}
         self.size = size
@@ -583,6 +583,8 @@ class FileChooserBase(QtWidgets.QWidget, gui.Widget):
 
         mh.redraw()
         self.callEvent('onRefresh', self)
+
+        
 
     def applyTagFilter(self):
         if not self.tagFilter:
